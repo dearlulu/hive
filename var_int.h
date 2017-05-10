@@ -7,7 +7,7 @@
 
 #include <stddef.h>
 
-#define MAX_ENCODE_LEN  16
+#define MAX_VARINT_SIZE  16
 
 // 将整数编码为到变长字节数组:
 // 返回值: 成功,返回变长编码长度; 失败,返回0;

@@ -67,11 +67,11 @@ void socket_router::forward_target(char* data, size_t data_len)
     if (it == nodes.end() || it->id != target_id)
         return;
 
-    BYTE msg_id_data[MAX_ENCODE_LEN];
+    BYTE msg_id_data[MAX_VARINT_SIZE];
     size_t msg_id_len = encode_u64(msg_id_data, sizeof(msg_id_data), (char)msg_id::remote_call);
 
     sendv_item items[] = {{msg_id_data, msg_id_len}, {data, data_len}};
-    m_mgr.sendv(it->token, items, _countof(items));
+    m_mgr->sendv(it->token, items, _countof(items));
 }
 
 void socket_router::forward_master(char* data, size_t data_len)
@@ -87,11 +87,11 @@ void socket_router::forward_master(char* data, size_t data_len)
     if (token == 0)
         return;
 
-    BYTE msg_id_data[MAX_ENCODE_LEN];
+    BYTE msg_id_data[MAX_VARINT_SIZE];
     size_t msg_id_len = encode_u64(msg_id_data, sizeof(msg_id_data), (char)msg_id::remote_call);
 
     sendv_item items[] = {{msg_id_data, msg_id_len}, {data, data_len}};
-    m_mgr.sendv(token, items, _countof(items));
+    m_mgr->sendv(token, items, _countof(items));
 }
 
 void socket_router::forward_random(char* data, size_t data_len)
@@ -109,7 +109,7 @@ void socket_router::forward_random(char* data, size_t data_len)
     if (count == 0)
         return;
 
-    BYTE msg_id_data[MAX_ENCODE_LEN];
+    BYTE msg_id_data[MAX_VARINT_SIZE];
     size_t msg_id_len = encode_u64(msg_id_data, sizeof(msg_id_data), (char)msg_id::remote_call);
     sendv_item items[] = {{msg_id_data, msg_id_len}, {data, data_len}};
 
@@ -119,7 +119,7 @@ void socket_router::forward_random(char* data, size_t data_len)
         auto& target = nodes[(idx + i) % count];
         if (target.token != 0)
         {
-            m_mgr.sendv(target.token, items, _countof(items));
+            m_mgr->sendv(target.token, items, _countof(items));
             break;
         }
     }
@@ -134,7 +134,7 @@ void socket_router::forward_broadcast(char* data, size_t data_len)
     data += len;
     data_len -= len;
 
-    BYTE msg_id_data[MAX_ENCODE_LEN];
+    BYTE msg_id_data[MAX_VARINT_SIZE];
     size_t msg_id_len = encode_u64(msg_id_data, sizeof(msg_id_data), (char)msg_id::remote_call);
     sendv_item items[] = {{msg_id_data, msg_id_len}, {data, data_len}};
 
@@ -145,7 +145,7 @@ void socket_router::forward_broadcast(char* data, size_t data_len)
     {
         if (target.token != 0)
         {
-            m_mgr.sendv(target.token, items, _countof(items));
+            m_mgr->sendv(target.token, items, _countof(items));
         }
     }
 }
@@ -172,7 +172,7 @@ void socket_router::forward_hash(char* data, size_t data_len)
     if (count == 0)
         return;
 
-    BYTE msg_id_data[MAX_ENCODE_LEN];
+    BYTE msg_id_data[MAX_VARINT_SIZE];
     size_t msg_id_len = encode_u64(msg_id_data, sizeof(msg_id_data), (char)msg_id::remote_call);
     sendv_item items[] = {{msg_id_data, msg_id_len}, {data, data_len}};
 
@@ -182,7 +182,7 @@ void socket_router::forward_hash(char* data, size_t data_len)
         auto& target = nodes[(idx + i) % count];
         if (target.token != 0)
         {
-            m_mgr.sendv(target.token, items, _countof(items));
+            m_mgr->sendv(target.token, items, _countof(items));
             break;
         }
     }

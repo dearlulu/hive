@@ -41,3 +41,5 @@
 *.idb
 *.log
 .DS_Store
+*.opendb
+*.db
