@@ -31,14 +31,14 @@ private:
     bool load_value(lua_State* L);
 
 private:
-    BYTE* m_begin = nullptr;
-    BYTE* m_pos = nullptr;
-    BYTE* m_end = nullptr;
+    unsigned char* m_begin = nullptr;
+    unsigned char* m_pos = nullptr;
+    unsigned char* m_end = nullptr;
     int m_table_depth = 0;
     std::vector<const char*> m_shared_string;
     std::vector<size_t> m_shared_strlen;
-	BYTE* m_ar_buffer = nullptr;
-	BYTE* m_lz_buffer = nullptr;
+	unsigned char* m_ar_buffer = nullptr;
+	unsigned char* m_lz_buffer = nullptr;
 	size_t m_buffer_size;
 	size_t m_lz_threshold;
 };
