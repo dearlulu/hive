@@ -23,15 +23,31 @@ luna同时支持Windows, Linux, macOS三平台,但是编译器必须支持C++14.
 
 在hive中,用户主要通过import函数加载lua文件.
 - import为每个文件创建了一个沙盒环境,这使得各个文件中的变量名不会冲突.
-- 在需要的地方,用户还可以继续使用require.
+- 在需要的地方,用户也可以同时使用require加载所需文件.
 - 多次import同一个文件,实际上只会加重一次,import返回的是文件的环境表.
-- import的文件,可以通过定期调用`hive.try_reload()`来检查文件时间戳,如发生修改,则会自动热加载.
+- 文件时间戳变化是,会自动重新加载.
 
-## 启停控制
+## 启停与信号
 
-#### 启动与退出
-程序启动后,执行入口文件.
-程序收到的退出信号,可以通过函数hive.signal查询.
+程序启动后,首先加载入口文件.  
+如果程序需要持续执行,而不是仅仅执行一遍,那么在hive上定义一个名为'run'的函数.   
+这样hive框架会一直循环的调用`hive.run`,如果程序想要退出,那么简单的将`hive.run`赋值为nil即可.
+在循环调用的过程中,如果发现入口文件时间戳变化,会自动重新加载.   
+用户可以注册信号`hive.register_signal(signo)`,注册后,可以通过掩码`hive.signal`来检视.  
+注意,用户需要在'hive.run'中调用sleep,否则会出现CPU完全占用的情况.  
+
+```lua
+count = count or 0;
+function hive.run()
+    count = count + 1;	
+	if count > 10 then
+		hive.run = nil;
+	end
+    hive.sleep_ms(2000);	
+end
+```
+
+程序收到的退出信号,可以通过信号掩码hive.signal查询.
 
 ## lua/c++绑定
 参见文档luna库文档

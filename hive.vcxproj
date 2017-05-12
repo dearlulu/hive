@@ -81,6 +81,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="hive.h" />
     <ClInclude Include="io_buffer.h" />
     <ClInclude Include="lua\lapi.h" />
     <ClInclude Include="lua\lauxlib.h" />
@@ -122,6 +123,7 @@
     <ClInclude Include="var_int.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="hive.cpp" />
     <ClCompile Include="lua\lapi.c" />
     <ClCompile Include="lua\lauxlib.c" />
     <ClCompile Include="lua\lbaselib.c" />

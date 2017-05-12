@@ -13,6 +13,7 @@ using int64_t = long long;
 using uint64_t = unsigned long long;
 #define getcwd _getcwd
 #define strdup _strdup
+#define tzset _tzset
 #endif
 
 #if defined(__linux) || defined(__APPLE__)

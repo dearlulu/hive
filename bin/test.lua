@@ -1,10 +1,16 @@
 #!/usr/bin/hive
 
-ct = 0;
+ct = ct or 0;
 
-while ct < 3 do
-    print(ct);
+function hive.run()
+    hive.sleep_ms(1000);
+
+    print("ct="..ct);
     ct = ct + 1;
-    hive.sleep_ms(2000);
+	if ct > 10000 then
+		print("quit");
+		hive.run = nil;
+	end
 end
+
 

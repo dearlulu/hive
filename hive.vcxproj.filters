@@ -138,6 +138,9 @@
     <ClInclude Include="lua_archiver.h">
       <Filter>include</Filter>
     </ClInclude>
+    <ClInclude Include="hive.h">
+      <Filter>include</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="lua\lbaselib.c">
@@ -276,6 +279,9 @@
       <Filter>source</Filter>
     </ClCompile>
     <ClCompile Include="lua_archiver.cpp">
+      <Filter>source</Filter>
+    </ClCompile>
+    <ClCompile Include="hive.cpp">
       <Filter>source</Filter>
     </ClCompile>
   </ItemGroup>
