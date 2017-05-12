@@ -48,7 +48,7 @@ public:
     void forward_hash(char* data, size_t data_len);
 
 private:
-	std::shared_ptr<socket_mgr> m_mgr;
+    std::shared_ptr<socket_mgr> m_mgr;
     std::array<service_group, MAX_SERVICE_GROUP> m_groups;
 };
 

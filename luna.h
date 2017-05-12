@@ -401,11 +401,11 @@ void lua_register_class(lua_State* L, T* obj)
 
     while (item->type != lua_member_type::member_none)
     {
-		const char* name = item->name;
-		// export member name "m_xxx" as "xxx"
+        const char* name = item->name;
+        // export member name "m_xxx" as "xxx"
 #if !defined(LUNA_KEEP_MEMBER_PREFIX)
-		if (name[0] == 'm' && name[1] == '_')
-			name += 2;
+        if (name[0] == 'm' && name[1] == '_')
+            name += 2;
 #endif
         lua_pushstring(L, name);
         lua_pushlightuserdata(L, item);
@@ -428,47 +428,47 @@ void lua_push_object(lua_State* L, T obj)
         return;
     }
 
-	lua_getfield(L, LUA_REGISTRYINDEX, "__objects__");
-	if (lua_isnil(L, -1))
-	{
-		lua_pop(L, 1);
-		lua_newtable(L);
+    lua_getfield(L, LUA_REGISTRYINDEX, "__objects__");
+    if (lua_isnil(L, -1))
+    {
+        lua_pop(L, 1);
+        lua_newtable(L);
 
-		lua_newtable(L);
-		lua_pushstring(L, "v");
-		lua_setfield(L, -2, "__mode");
-		lua_setmetatable(L, -2);
+        lua_newtable(L);
+        lua_pushstring(L, "v");
+        lua_setfield(L, -2, "__mode");
+        lua_setmetatable(L, -2);
 
-		lua_pushvalue(L, -1);
-		lua_setfield(L, LUA_REGISTRYINDEX, "__objects__");
-	}
+        lua_pushvalue(L, -1);
+        lua_setfield(L, LUA_REGISTRYINDEX, "__objects__");
+    }
 
-	// stack: __objects__
-	if (lua_rawgetp(L, -1, obj) != LUA_TTABLE)
-	{
-		lua_pop(L, 1);
+    // stack: __objects__
+    if (lua_rawgetp(L, -1, obj) != LUA_TTABLE)
+    {
+        lua_pop(L, 1);
 
-		lua_newtable(L);
-		lua_pushstring(L, "__pointer__");
-		lua_pushlightuserdata(L, obj);
-		lua_rawset(L, -3);
+        lua_newtable(L);
+        lua_pushstring(L, "__pointer__");
+        lua_pushlightuserdata(L, obj);
+        lua_rawset(L, -3);
 
-		// stack: __objects__, tab
-		const char* meta_name = obj->lua_get_meta_name();
-		luaL_getmetatable(L, meta_name);
-		if (lua_isnil(L, -1))
-		{
-			lua_remove(L, -1);
-			lua_register_class(L, obj);
-			luaL_getmetatable(L, meta_name);
-		}
-		lua_setmetatable(L, -2);
+        // stack: __objects__, tab
+        const char* meta_name = obj->lua_get_meta_name();
+        luaL_getmetatable(L, meta_name);
+        if (lua_isnil(L, -1))
+        {
+            lua_remove(L, -1);
+            lua_register_class(L, obj);
+            luaL_getmetatable(L, meta_name);
+        }
+        lua_setmetatable(L, -2);
 
-		// stack: __objects__, tab
-		lua_pushvalue(L, -1);
-		lua_rawsetp(L, -3, obj);
-	}
-	lua_remove(L, -2);
+        // stack: __objects__, tab
+        lua_pushvalue(L, -1);
+        lua_rawsetp(L, -3, obj);
+    }
+    lua_remove(L, -2);
 }
 
 template<typename T>

@@ -18,8 +18,8 @@ class socket_mgr
 {
 public:
     socket_mgr();
-	socket_mgr(socket_mgr& other);
-	socket_mgr(socket_mgr&& other);
+    socket_mgr(socket_mgr& other);
+    socket_mgr(socket_mgr&& other);
     ~socket_mgr();
 
     bool setup(int max_connection);

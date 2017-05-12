@@ -1,4 +1,4 @@
-/*
+﻿/*
 ** repository: https://github.com/trumanzhao/luna
 ** trumanzhao, 2017-04-23, trumanzhao@foxmail.com
 */
@@ -32,10 +32,10 @@ socket_mgr::socket_mgr(socket_mgr& other) : m_impl(other.m_impl) {}
 socket_mgr::socket_mgr(socket_mgr&& other) : m_impl(other.m_impl) {}
 socket_mgr::~socket_mgr() { }
 
-bool socket_mgr::setup(int max_connection) 
+bool socket_mgr::setup(int max_connection)
 {
-	m_impl = std::make_shared<socket_mgr_impl>();
-	return m_impl->setup(max_connection); 
+    m_impl = std::make_shared<socket_mgr_impl>();
+    return m_impl->setup(max_connection);
 }
 
 void socket_mgr::wait(int timeout){ m_impl->wait(timeout); }

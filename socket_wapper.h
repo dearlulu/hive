@@ -21,13 +21,13 @@ public:
     int listen(lua_State* L);
     int connect(lua_State* L);
     void set_package_size(size_t size);
-	void set_lz_threshold(size_t size);
+    void set_lz_threshold(size_t size);
     int route(lua_State* L);
     void master(uint8_t group_idx, uint32_t token);
 
 private:
     lua_State* m_lvm = nullptr;
-	std::shared_ptr<socket_mgr> m_mgr;
+    std::shared_ptr<socket_mgr> m_mgr;
     std::shared_ptr<lua_archiver> m_archiver;
     std::shared_ptr<socket_router> m_router;
 
@@ -65,7 +65,7 @@ private:
     uint32_t m_token = 0;
     lua_State* m_lvm = nullptr;
     std::string m_ip;
-	std::shared_ptr<socket_mgr> m_mgr;
+    std::shared_ptr<socket_mgr> m_mgr;
     std::shared_ptr<lua_archiver> m_archiver;
     std::shared_ptr<socket_router> m_router;
 
